@@ -1,4 +1,5 @@
 import os
+import gunicorn
 from dotenv import load_dotenv
 from datetime import date
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory, abort
