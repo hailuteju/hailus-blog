@@ -1,5 +1,4 @@
 import os
-import gunicorn
 from dotenv import load_dotenv
 from datetime import date
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory, abort
@@ -14,7 +13,7 @@ from functools import wraps
 
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
-load_dotenv(override=True)
+load_dotenv()
 
 # Delete this code:
 # import requests
