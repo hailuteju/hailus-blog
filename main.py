@@ -13,14 +13,14 @@ from functools import wraps
 
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
-load_dotenv()
+load_dotenv(override=True)
 
 # Delete this code:
 # import requests
 # posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRETE_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app,
