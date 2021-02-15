@@ -19,6 +19,9 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 # posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
 # https://hailu-blog.herokuapp.com
 
+# The most beautiful = https://lh3.googleusercontent.com/xa7
+# -tFExXrUU4_JdtfOG4dKgOADBHk0Z7gHny0l6WB1X3d3P4Y50K45WSliZfn-YuX2xHvqGbQ=s220-w220-h140
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
@@ -33,7 +36,7 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL") # 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")  # 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -99,6 +102,7 @@ def admin_only(f):
             return abort(403)
         # Otherwise continue with the route function
         return f(*args, **kwargs)
+
     return decorated_function
 
 
@@ -243,6 +247,12 @@ def delete_post(post_id):
     db.session.delete(post_to_delete)
     db.session.commit()
     return redirect(url_for("get_all_posts"))
+
+
+@app.route("/resources")
+@admin_only
+def collabera_training_notes():
+    return render_template("linux-git-sql.html")
 
 
 @app.route("/logout")
