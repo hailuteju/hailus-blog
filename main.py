@@ -19,7 +19,7 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 # posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "4788389ee694129bb8439edd70bc4690"
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app,
