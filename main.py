@@ -17,6 +17,7 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 # Delete this code:
 # import requests
 # posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
+# https://hailu-blog.herokuapp.com
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -32,7 +33,7 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")#'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL") # 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
