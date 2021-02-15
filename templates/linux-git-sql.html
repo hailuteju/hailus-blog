@@ -2,34 +2,37 @@
 
 {% block content %}
 {% include "header.html" %}
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/collabera-training.jpg')}}')">
+<!-- Page Header -->
+<header class="masthead" style="background-image: url('{{ url_for('static', filename='img/collabera-training.jpg')}}')">
     <div class="overlay"></div>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
-            <h1>Collabera Training Notes</h1>
-            <span class="subheading">These notes are still awesome!</span>
-          </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="page-heading">
+                    <h1>Collabera Training Notes</h1>
+                    <span class="subheading">These notes are still awesome!</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
-  <div class="container">
+</header>
+<div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <ul>
-            <li>
-                <a href="https://hailuteju.github.io/collabera-training-notes/linux_git.html">Linux and GitHub</a>
-            </li>
-            <li>
-                <a href="https://hailuteju.github.io/collabera-training-notes/oracle_sql.html">Oracle SQL</a>
-            </li>
-        </ul>
-      </div>
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="commentList">
+                <li>
+                    <a href="https://hailuteju.github.io/collabera-training-notes/linux_git.html">Linux and GitHub</a>
+                </li>
+                <li>
+                    <a href="https://hailuteju.github.io/collabera-training-notes/oracle_sql.html">Oracle SQL</a>
+                </li>
+            </ul>
+            <div class="beautiful_img_container">
+                <img src="https://lh3.googleusercontent.com/xa7-tFExXrUU4_JdtfOG4dKgOADBHk0Z7gHny0l6WB1X3d3P4Y50K45WSliZfn-YuX2xHvqGbQ=s220-w220-h140"/>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
 {% include "footer.html" %}
 {% endblock %}

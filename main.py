@@ -19,8 +19,6 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 # posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
 # https://hailu-blog.herokuapp.com
 
-# The most beautiful = https://lh3.googleusercontent.com/xa7
-# -tFExXrUU4_JdtfOG4dKgOADBHk0Z7gHny0l6WB1X3d3P4Y50K45WSliZfn-YuX2xHvqGbQ=s220-w220-h140
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
