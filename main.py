@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from datetime import date
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory, abort
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -11,12 +13,14 @@ from functools import wraps
 
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
+load_dotenv(override=True)
+
 # Delete this code:
 # import requests
 # posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '4788389ee694129bb8439edd70bc4690'
+app.config['SECRET_KEY'] = os.environ.get('SECRETE_KEY')
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app,
