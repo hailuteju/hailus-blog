@@ -10,6 +10,7 @@ Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
 flask-login==0.5.0
 flask-gravatar==0.5.0
+psycopg2==2.8.6
 idna==2.10
 itsdangerous==1.1.0
 Jinja2==2.11.2
