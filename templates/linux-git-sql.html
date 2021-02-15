@@ -1,0 +1,35 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block content %}
+{% include "header.html" %}
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('{{ url_for('static', filename='img/edit-bg.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Collabera Training Notes</h1>
+            <span class="subheading">These notes are still awesome!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul>
+            <li>
+                <a href="https://hailuteju.github.io/collabera-training-notes/linux_git.html">Linux and GitHub</a>
+            </li>
+            <li>
+                <a href="https://hailuteju.github.io/collabera-training-notes/oracle_sql.html">Oracle SQL</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+{% include "footer.html" %}
+{% endblock %}
