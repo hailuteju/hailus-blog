@@ -1,4 +1,5 @@
 import os
+import smtplib
 from datetime import date
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory, abort
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -11,14 +12,10 @@ from flask_gravatar import Gravatar
 from functools import wraps
 
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
-
 # load_dotenv(override=True)
 
-# Delete this code:
-# import requests
-# posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
-# https://hailu-blog.herokuapp.com
-
+MY_EMAIL = os.environ.get("MY_EMAIL")
+MY_PASSWORD = os.environ.get("MY_PASSWORD")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -264,9 +261,29 @@ def about():
     return render_template("about.html", current_user=current_user)
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
+@login_required
 def contact():
+    if request.method == "POST":
+        data = request.form
+        name = data["name"]
+        email_ = data["email"]
+        phone = data["phone"]
+        message = data["message"]
+
+        send_email(name, email_, phone, message)
+        flash('Successfully sent your message.')
+
+        return redirect(url_for('get_all_posts'))
     return render_template("contact.html", current_user=current_user)
+
+
+def send_email(nm, eml, phn, msg):
+    email_message = f"Subject: New Message\n\nName: {nm}\nEmail: {eml}\nPhone: {phn}\nMessage: {msg}"
+    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+        connection.starttls()
+        connection.login(MY_EMAIL, MY_PASSWORD)
+        connection.sendmail(MY_EMAIL, "hteju2001@gmail.com", email_message)
 
 
 if __name__ == "__main__":
