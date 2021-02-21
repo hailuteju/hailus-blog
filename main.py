@@ -278,7 +278,7 @@ def about():
 
 
 @app.route("/contact", methods=["GET", "POST"])
-# @login_required
+@login_required
 def contact():
     if request.method == "POST":
         data = request.form
@@ -294,9 +294,9 @@ def contact():
     return render_template("contact.html", current_user=current_user)
 
 
-def send_email(name, email, phone, message):
+def send_email(name, eml, phone, message):
     msg = Message("New Message", sender=ADMINS[0], recipients=ADMINS)
-    msg.body = f"Name: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}"
+    msg.body = f"Name: {name}\nEmail: {eml}\nPhone: {phone}\nMessage: {message}"
     # msg.html = '<b>HTML</b> body'
     with app.app_context():
         mail.send(msg)
