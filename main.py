@@ -1,5 +1,5 @@
 import os
-import smtplib
+import smtplib, ssl
 from datetime import date
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory, abort
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -280,7 +280,9 @@ def contact():
 
 def send_email(nm, eml, phn, msg):
     email_message = f"Subject: New Message\n\nName: {nm}\nEmail: {eml}\nPhone: {phn}\nMessage: {msg}"
-    with smtplib.SMTP("smtp.gmail.com") as connection:
+    context = ssl.create_default_context()
+    # with smtplib.SMTP("smtp.gmail.com") as connection:
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, MY_PASSWORD)
         connection.sendmail(MY_EMAIL, "hteju2001@gmail.com", email_message)
