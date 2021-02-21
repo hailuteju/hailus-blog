@@ -1,5 +1,5 @@
 import os
-import smtplib, ssl
+import smtplib
 from datetime import date
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory, abort
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -9,16 +9,32 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_ckeditor import CKEditor
 from flask_gravatar import Gravatar
+from flask_mail import Message, Mail
 from functools import wraps
 
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
+
 # load_dotenv(override=True)
 
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASSWORD = os.environ.get("MY_PASSWORD")
 
+ADMINS = [MY_EMAIL, 'hteju2001@gmail.com']
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+
+app.config.update(dict(
+    DEBUG=True,
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=587,
+    MAIL_USE_TLS=True,
+    MAIL_USE_SSL=False,
+    MAIL_USERNAME=MY_EMAIL,
+    MAIL_PASSWORD=MY_PASSWORD,
+))
+mail = Mail(app)
+
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app,
@@ -278,15 +294,18 @@ def contact():
     return render_template("contact.html", current_user=current_user)
 
 
-def send_email(nm, eml, phn, msg):
-    email_message = f"Subject: New Message\n\nName: {nm}\nEmail: {eml}\nPhone: {phn}\nMessage: {msg}"
-    context = ssl.create_default_context()
-    # with smtplib.SMTP("smtp.gmail.com") as connection:
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as connection:
-        connection.starttls()
-        connection.login(MY_EMAIL, MY_PASSWORD)
-        connection.sendmail(MY_EMAIL, "hteju2001@gmail.com", email_message)
+def send_email(name, email, phone, message):
+    msg = Message("New Message", sender=ADMINS[0], recipients=ADMINS)
+    msg.body = f"Name: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}"
+    # msg.html = '<b>HTML</b> body'
+    with app.app_context():
+        mail.send(msg)
+    # with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+    #     connection.starttls()
+    #     connection.login(MY_EMAIL, MY_PASSWORD)
+    #     connection.sendmail(MY_EMAIL, "hteju2001@gmail.com", email_message)
 
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run()
+    # app.run(host='127.0.0.1', port=5000, debug=True)
