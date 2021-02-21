@@ -280,7 +280,7 @@ def contact():
 
 def send_email(nm, eml, phn, msg):
     email_message = f"Subject: New Message\n\nName: {nm}\nEmail: {eml}\nPhone: {phn}\nMessage: {msg}"
-    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+    with smtplib.SMTP("smtp.gmail.com") as connection:
         connection.starttls()
         connection.login(MY_EMAIL, MY_PASSWORD)
         connection.sendmail(MY_EMAIL, "hteju2001@gmail.com", email_message)
