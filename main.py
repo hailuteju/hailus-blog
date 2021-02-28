@@ -260,6 +260,19 @@ def delete_post(post_id):
     return redirect(url_for("get_all_posts"))
 
 
+@app.route("/delete_comment/<int:post_id>/<int:comment_id>")
+@admin_only
+def delete_comment(post_id, comment_id):
+    comment_to_delete = Comment.query.get(comment_id)
+    db.session.delete(comment_to_delete)
+    db.session.commit()
+
+    form = CommentForm()
+    requested_post = BlogPost.query.get(post_id)
+
+    return render_template("post.html", post=requested_post, form=form, current_user=current_user)
+
+
 @app.route("/resources")
 @admin_only
 def collabera_training_notes():
